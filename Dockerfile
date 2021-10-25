@@ -1,13 +1,11 @@
-FROM anapsix/alpine-java:8_server-jre_unlimited
+FROM openjdk:8-oracle
 
-MAINTAINER smallchill@163.com
+WORKDIR /home
 
-RUN mkdir -p /blade
+# Copy jar
+COPY ./target/app.jar /home
 
-WORKDIR /blade
+ADD scripts/entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
-ADD ./target/SpringBlade.jar ./app.jar
-
-ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
-
-CMD ["--spring.profiles.active=test"]
+ENTRYPOINT ["/entrypoint.sh"]

@@ -6,8 +6,6 @@ RUN mkdir -p /blade
 
 WORKDIR /blade
 
-EXPOSE 8800
-
 ADD ./target/SpringBlade.jar ./app.jar
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]

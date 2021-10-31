@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequiredArgsConstructor
-@Api(value = "专业信息", tags = "接口")
+@Api(tags = "专业信息")
 @PreAuth(RoleConstant.HAS_ROLE_ADMIN)
 @RequestMapping("/blade-system/major")
 public class MajorController extends BladeController {

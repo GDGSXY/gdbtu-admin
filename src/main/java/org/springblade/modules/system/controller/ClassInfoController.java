@@ -78,6 +78,7 @@ public class ClassInfoController extends BladeController {
             Major major = majorMap.get(v.getMajorId());
             vo.setMajorName(major.getName());
             vo.setAcademyName("I don't know");
+            vo.setNumStudents(studentService.countByClassId(v.getId()));
             vo.setCounselorName(teacherMap.get(v.getCounselorId()).getName());
             vo.setHeadTeacherName(teacherMap.get(v.getHeadTeacherId()).getName());
             return vo;

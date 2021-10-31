@@ -7,4 +7,7 @@ import org.springblade.modules.system.entity.Student;
  *
  */
 public interface StudentService extends IService<Student> {
+
+    int countByClassId(long classId);
+
 }

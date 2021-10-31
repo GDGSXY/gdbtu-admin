@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.springblade.modules.system.mapper.MajorMapper">
+
+    <select id="getMapByIds" resultType="org.springblade.modules.system.entity.Major">
+        SELECT *
+        FROM `major`
+        WHERE `id` IN
+        <foreach collection="majorIds" item="majorId" open="(" separator="," close=")">
+            #{majorId}
+        </foreach>
+    </select>
+
+</mapper>

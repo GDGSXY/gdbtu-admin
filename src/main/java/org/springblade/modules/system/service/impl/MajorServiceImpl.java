@@ -11,6 +11,8 @@ import org.springblade.modules.system.query.MajorQuery;
 import org.springblade.modules.system.service.MajorService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -24,6 +26,11 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
         LambdaQueryWrapper<Major> wrapper = Wrappers.lambdaQuery(Major.class)
                 .eq(Objects.nonNull(query.getName()), Major::getName, query.getName());
         return page(PageUtil.toPage(query), wrapper);
+    }
+
+    @Override
+    public Map<Long, Major> getMapByIds(List<Long> majorIds) {
+        return baseMapper.getMapByIds(majorIds);
     }
 
 }

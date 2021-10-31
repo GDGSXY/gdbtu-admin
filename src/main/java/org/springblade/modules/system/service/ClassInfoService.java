@@ -7,4 +7,7 @@ import org.springblade.modules.system.entity.ClassInfo;
  * @author Jover Zhang
  */
 public interface ClassInfoService extends IService<ClassInfo> {
+
+    long countByMajorId(long majorId);
+
 }

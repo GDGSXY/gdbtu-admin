@@ -19,6 +19,8 @@ import org.springblade.modules.system.vo.MajorVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 专业信息控制器
  *
@@ -58,23 +60,30 @@ public class MajorController extends BladeController {
         return R.data(voPage);
     }
 
+    @GetMapping("/select")
+    @ApiOperation("下拉数据源")
+    @ApiOperationSupport(order = 3)
+    public R<List<Major>> select() {
+        return R.data(service.list());
+    }
+
     @ApiOperation("新增")
     @PostMapping("/save")
-    @ApiOperationSupport(order = 3)
+    @ApiOperationSupport(order = 4)
     public R<Void> create(@RequestBody Major major) {
         return R.status(service.saveOrUpdate(major));
     }
 
     @ApiOperation("修改")
     @PostMapping("/update")
-    @ApiOperationSupport(order = 3)
+    @ApiOperationSupport(order = 5)
     public R<Void> update(@RequestBody Major major) {
         return R.status(service.saveOrUpdate(major));
     }
 
     @ApiOperation("删除")
     @PostMapping("/remove")
-    @ApiOperationSupport(order = 4)
+    @ApiOperationSupport(order = 6)
     public R<Void> update(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
         return R.status(service.removeByIds(Func.toLongList(ids)));
     }

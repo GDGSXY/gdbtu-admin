@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.springblade.modules.system.mapper.TeacherMapper">
 
+    <select id="getTeacherById" resultType="org.springblade.modules.system.bo.TeacherBO">
+        SELECT `u`.`id`                    AS `id`,
+               `t`.`teacher_code`          AS `teacherCode`,
+               `t`.`name`                  AS `name`,
+               `t`.`identification_number` AS `identificationNumber`,
+               `t`.`job_status`            AS `jobStatus`,
+               `u`.`account`               AS `account`,
+               `u`.`role_id`               AS `roleIds`
+        FROM `teacher` `t`
+                 JOIN `blade_user` `u` ON `t`.`user_id` = `u`.`id`
+        WHERE `u`.`id` = #{id}
+    </select>
+
     <select id="getMapByIds" resultType="org.springblade.modules.system.entity.Teacher">
         SELECT *
         FROM `teacher`
@@ -9,6 +22,36 @@
         <foreach collection="userIds" item="userId" open="(" separator="," close=")">
             #{userId}
         </foreach>
+    </select>
+
+    <select id="getPage" resultType="org.springblade.modules.system.bo.TeacherBO">
+        SELECT
+        `u`.`id` AS `id`,
+        `t`.`teacher_code` AS `teacherCode`,
+        `t`.`name` AS `name`,
+        `t`.`identification_number` AS `identificationNumber`,
+        `t`.`job_status` AS `jobStatus`,
+        `u`.`account` AS `account`,
+        `u`.`role_id` AS `roleIds`
+        FROM `teacher` `t`
+        JOIN `blade_user` `u` ON `t`.`user_id` = `u`.`id`
+        WHERE
+        u.`is_deleted` = 0 AND t.`deleted` = 0
+        <if test="query.teacherCode != null">
+            AND `t`.`teacher_code` = #{query.teacherCode}
+        </if>
+        <if test="query.name != null">
+            AND `t`.`name` LIKE '${query.name}%'
+        </if>
+        <if test="query.identificationNumber != null">
+            AND `t`.`identification_number` = #{query.identificationNumber}
+        </if>
+        <if test="query.jobStatus != null">
+            AND `t`.`job_status` = #{query.jobStatus}
+        </if>
+        <if test="query.account != null">
+            AND `u`.`account` LIKE '${query.account}%'
+        </if>
     </select>
 
 </mapper>

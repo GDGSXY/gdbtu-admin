@@ -14,4 +14,6 @@ public interface ClassInfoService extends IService<ClassInfo> {
 
     long countByMajorId(long majorId);
 
+    long countByTeacherId(long teacherId);
+
 }

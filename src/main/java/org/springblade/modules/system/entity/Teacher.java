@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import org.springblade.common.entity.BaseEntity;
 import org.springblade.modules.system.enums.PoliticalOutlookEnum;
 import org.springblade.modules.system.enums.TeacherJobStatusEnum;
@@ -17,74 +18,75 @@ import java.io.Serializable;
  * @author Jover Zhang
  */
 @Data
+@Accessors(chain = true)
 @TableName(value = "teacher")
 @EqualsAndHashCode(callSuper = true)
 public class Teacher extends BaseEntity implements Serializable {
 
-	private Long userId;
+    private Long userId;
 
-	private Long academyId;
+    private Long academyId;
 
-	private String teacherCode;
+    private String teacherCode;
 
-	// 详细信息
+    // 详细信息
 
-	/**
-	 * 教师姓名
-	 */
-	private String name;
+    /**
+     * 教师姓名
+     */
+    private String name;
 
-	/**
-	 * 性别
-	 */
-	private UserGenderEnum gender;
+    /**
+     * 性别
+     */
+    private UserGenderEnum gender;
 
-	/**
-	 * 身份证号码
-	 */
-	private String identificationNumber;
+    /**
+     * 身份证号码
+     */
+    private String identificationNumber;
 
-	/**
-	 * 籍贯
-	 */
-	private String nativePlace;
+    /**
+     * 籍贯
+     */
+    private String nativePlace;
 
-	/**
-	 * 联系电话
-	 */
-	private String concatNumber;
+    /**
+     * 联系电话
+     */
+    private String concatNumber;
 
-	/**
-	 * 政治面貌
-	 */
-	private PoliticalOutlookEnum politicalOutlook;
+    /**
+     * 政治面貌
+     */
+    private PoliticalOutlookEnum politicalOutlook;
 
-	/**
-	 * 本科毕业学校
-	 */
-	private String undergraduateSchool;
+    /**
+     * 本科毕业学校
+     */
+    private String undergraduateSchool;
 
-	/**
-	 * 本科毕业专业
-	 */
-	private String undergraduateMajor;
+    /**
+     * 本科毕业专业
+     */
+    private String undergraduateMajor;
 
-	/**
-	 * 硕士毕业学校
-	 */
-	private String masterGraduateSchool;
+    /**
+     * 硕士毕业学校
+     */
+    private String masterGraduateSchool;
 
-	/**
-	 * 硕士毕业专业
-	 */
-	private String masterGraduateMajor;
+    /**
+     * 硕士毕业专业
+     */
+    private String masterGraduateMajor;
 
-	/**
-	 * 入职状态
-	 */
-	private TeacherJobStatusEnum jobStatus;
+    /**
+     * 入职状态
+     */
+    private TeacherJobStatusEnum jobStatus;
 
-	@TableField(exist = false)
-	private static final long serialVersionUID = 1L;
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
 
 }

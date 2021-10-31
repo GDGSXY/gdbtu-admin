@@ -46,4 +46,13 @@ public class ClassInfoServiceImpl extends ServiceImpl<ClassInfoMapper, ClassInfo
         return count(wrapper);
     }
 
+    @Override
+    public long countByTeacherId(long teacherId) {
+        LambdaQueryWrapper<ClassInfo> wrapper = Wrappers.lambdaQuery(ClassInfo.class)
+                .eq(ClassInfo::getCounselorId, teacherId)
+                .or()
+                .eq(ClassInfo::getHeadTeacherId, teacherId);
+        return count(wrapper);
+    }
+
 }

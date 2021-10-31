@@ -27,6 +27,7 @@ import org.springblade.core.tool.constant.BladeConstant;
 import org.springblade.core.tool.node.INode;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.entity.Role;
+import org.springblade.modules.system.enums.RoleLevelEnum;
 import org.springblade.modules.system.service.IRoleService;
 import org.springblade.modules.system.vo.GrantVO;
 import org.springblade.modules.system.vo.RoleVO;
@@ -43,7 +44,6 @@ import java.util.Map;
  *
  * @author Chill
  */
-@ApiIgnore
 @RestController
 @AllArgsConstructor
 @RequestMapping("/blade-system/role")
@@ -69,7 +69,8 @@ public class RoleController extends BladeController {
 	@GetMapping("/list")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "roleName", value = "参数名称", paramType = "query", dataType = "string"),
-		@ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string")
+		@ApiImplicitParam(name = "roleAlias", value = "角色别名", paramType = "query", dataType = "string"),
+		@ApiImplicitParam(name = "level", value = "角色职级", paramType = "query", dataTypeClass = RoleLevelEnum.class)
 	})
 	@ApiOperationSupport(order = 2)
 	@ApiOperation(value = "列表", notes = "传入role")
@@ -96,7 +97,7 @@ public class RoleController extends BladeController {
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "新增或修改", notes = "传入role")
-	public R submit(@Valid @RequestBody Role role, BladeUser user) {
+	public R<Boolean> submit(@Valid @RequestBody Role role, BladeUser user) {
 		if (Func.isEmpty(role.getId())) {
 			role.setTenantId(user.getTenantId());
 		}
@@ -109,7 +110,7 @@ public class RoleController extends BladeController {
 	@PostMapping("/remove")
 	@ApiOperationSupport(order = 5)
 	@ApiOperation(value = "删除", notes = "传入ids")
-	public R remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
+	public R<Boolean> remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
 		return R.status(roleService.removeByIds(Func.toLongList(ids)));
 	}
 
@@ -119,7 +120,7 @@ public class RoleController extends BladeController {
 	@PostMapping("/grant")
 	@ApiOperationSupport(order = 6)
 	@ApiOperation(value = "权限设置", notes = "传入roleId集合以及menuId集合")
-	public R grant(@RequestBody GrantVO grantVO) {
+	public R<Boolean> grant(@RequestBody GrantVO grantVO) {
 		boolean temp = roleService.grant(grantVO.getRoleIds(), grantVO.getMenuIds());
 		return R.status(temp);
 	}

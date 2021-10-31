@@ -24,6 +24,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springblade.modules.system.enums.RoleLevelEnum;
 
 import java.io.Serializable;
 
@@ -65,6 +66,12 @@ public class Role implements Serializable {
 	 */
 	@ApiModelProperty(value = "角色名")
 	private String roleName;
+
+	/**
+	 * 角色职级
+	 */
+	@ApiModelProperty("角色职级")
+	private RoleLevelEnum level;
 
 	/**
 	 * 排序

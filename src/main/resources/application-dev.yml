@@ -30,3 +30,7 @@ blade:
     remote-path: /usr/share/nginx/html
     remote-path-iis: D://iis/html
     log-mode: true
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

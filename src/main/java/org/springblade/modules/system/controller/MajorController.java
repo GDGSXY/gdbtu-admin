@@ -52,7 +52,7 @@ public class MajorController extends BladeController {
                     MajorVO vo = new MajorVO();
                     BeanUtils.copyProperties(major, vo);
                     // 班级个数
-                    vo.setClassesCount(classInfoService.countByMajorId(major.getId()));
+                    vo.setNumClasses(classInfoService.countByMajorId(major.getId()));
                     return vo;
                 });
         return R.data(voPage);

@@ -14,6 +14,6 @@ import org.springblade.modules.system.entity.Major;
 public class MajorVO extends Major {
 
     @ApiModelProperty("班级个数")
-    private Long classesCount;
+    private Long numClasses;
 
 }

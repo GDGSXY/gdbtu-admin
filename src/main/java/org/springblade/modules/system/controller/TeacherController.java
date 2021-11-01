@@ -17,8 +17,12 @@ import org.springblade.modules.system.cmd.UpdateTeacherCMD;
 import org.springblade.modules.system.query.TeacherQuery;
 import org.springblade.modules.system.service.ClassInfoService;
 import org.springblade.modules.system.service.TeacherService;
+import org.springblade.modules.system.vo.TeacherSelectVO;
 import org.springblade.modules.system.vo.TeacherVO;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 教职工信息控制器
@@ -49,6 +53,18 @@ public class TeacherController {
     @ApiOperationSupport(order = 2)
     public R<IPage<TeacherVO>> page(TeacherQuery query) {
         return R.data(service.getPage(query).convert(this::convert));
+    }
+
+    @GetMapping("/select")
+    @ApiOperation("下拉数据源")
+    @ApiOperationSupport(order = 3)
+    public R<List<TeacherSelectVO>> select() {
+        List<TeacherSelectVO> selectList = service.list().stream()
+                .map(t -> new TeacherSelectVO()
+                        .setId(t.getUserId())
+                        .setName(t.getName()))
+                .collect(Collectors.toList());
+        return R.data(selectList);
     }
 
     @ApiOperation("新增")

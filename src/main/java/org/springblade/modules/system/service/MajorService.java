@@ -17,4 +17,6 @@ public interface MajorService extends IService<Major> {
 
     Map<Long, Major> getMapByIds(List<Long> majorIds);
 
+    long countByAcademyId(long academyId);
+
 }

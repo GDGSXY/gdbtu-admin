@@ -33,8 +33,11 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
         return baseMapper.getMapByIds(majorIds);
     }
 
+    @Override
+    public long countByAcademyId(long academyId) {
+        LambdaQueryWrapper<Major> wrapper = Wrappers.lambdaQuery(Major.class)
+                .eq(Major::getAcademyId, academyId);
+        return count(wrapper);
+    }
+
 }
-
-
-
-

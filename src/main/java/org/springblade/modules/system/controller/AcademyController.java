@@ -14,6 +14,8 @@ import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.entity.Academy;
 import org.springblade.modules.system.query.AcademyQuery;
 import org.springblade.modules.system.service.AcademyService;
+import org.springblade.modules.system.service.MajorService;
+import org.springblade.modules.system.vo.AcademyVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,18 +36,20 @@ public class AcademyController extends BladeController {
 
     private final AcademyService service;
 
+    private final MajorService majorService;
+
     @GetMapping("/{id}")
     @ApiOperation("查看详情")
     @ApiOperationSupport(order = 1)
-    public R<Academy> detail(@PathVariable("id") long id) {
-        return R.data(service.getById(id));
+    public R<AcademyVO> detail(@PathVariable("id") long id) {
+        return R.data(convert(service.getById(id)));
     }
 
     @GetMapping
     @ApiOperation("分页")
     @ApiOperationSupport(order = 2)
-    public R<IPage<Academy>> getPage(@Valid AcademyQuery query) {
-        return R.data(service.getPage(query));
+    public R<IPage<AcademyVO>> getPage(@Valid AcademyQuery query) {
+        return R.data(service.getPage(query).convert(this::convert));
     }
 
     @GetMapping("/select")
@@ -74,6 +78,15 @@ public class AcademyController extends BladeController {
     @ApiOperationSupport(order = 6)
     public R<Void> update(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
         return R.status(service.removeByIds(Func.toLongList(ids)));
+    }
+
+    private AcademyVO convert(Academy v) {
+        AcademyVO vo = new AcademyVO();
+        vo.setId(v.getId());
+        vo.setName(v.getName());
+        vo.setSort(v.getSort());
+        vo.setNumMajors(majorService.countByAcademyId(v.getId()));
+        return vo;
     }
 
 }

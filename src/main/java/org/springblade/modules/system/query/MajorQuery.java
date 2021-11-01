@@ -16,4 +16,7 @@ public class MajorQuery extends PagingQuery {
     @ApiModelProperty("专业名称")
     private String name;
 
+    @ApiModelProperty("学院 id")
+    private Long academyId;
+
 }

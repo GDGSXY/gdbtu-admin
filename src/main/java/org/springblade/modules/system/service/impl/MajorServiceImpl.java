@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author Jover Zhang
@@ -24,7 +23,8 @@ public class MajorServiceImpl extends ServiceImpl<MajorMapper, Major> implements
     @Override
     public IPage<Major> getPage(MajorQuery query) {
         LambdaQueryWrapper<Major> wrapper = Wrappers.lambdaQuery(Major.class)
-                .eq(Objects.nonNull(query.getName()), Major::getName, query.getName());
+                .eq(query.getName() != null, Major::getName, query.getName())
+                .eq(query.getAcademyId() != null, Major::getAcademyId, query.getAcademyId());
         return page(PageUtil.toPage(query), wrapper);
     }
 

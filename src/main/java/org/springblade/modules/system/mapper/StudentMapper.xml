@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.springblade.modules.system.mapper.StudentMapper">
+
+    <select id="getStudentById" resultType="org.springblade.modules.system.bo.StudentBO">
+        SELECT `u`.`id`                    AS `id`,
+               `s`.`student_code`          AS `studentCode`,
+               `s`.`name`                  AS `name`,
+               `s`.`gender`                AS `gender`,
+               `s`.`class_id`              AS `classId`,
+               `s`.`identification_number` AS `identificationNumber`,
+               `s`.`political_outlook`     AS `politicalOutlook`,
+               `s`.`student_status`        AS `studentStatus`,
+               `u`.`account`               AS `account`,
+               `u`.`role_id`               AS `roleIds`
+        FROM `student` `s`
+                 JOIN `blade_user` `u` ON `s`.`user_id` = `u`.`id`
+        WHERE `u`.`is_deleted` = 0
+          AND `s`.`deleted` = 0
+          AND `u`.`id` = #{userId}
+    </select>
+
+    <select id="getPage" resultType="org.springblade.modules.system.bo.StudentBO">
+        SELECT
+        `u`.`id` AS `id`,
+        `s`.`student_code` AS `studentCode`,
+        `s`.`name` AS `name`,
+        `s`.`gender` AS gender,
+        `s`.`class_id` AS `classId`,
+        `s`.`identification_number` AS `identificationNumber`,
+        `s`.`political_outlook` AS `politicalOutlook`,
+        `s`.`student_status` AS `studentStatus`,
+        `u`.`account` AS `account`,
+        `u`.`role_id` AS `roleIds`
+        FROM `student` `s`
+        JOIN `blade_user` `u` ON `s`.`user_id` = `u`.`id`
+        WHERE
+        u.`is_deleted` = 0 AND `s`.`deleted` = 0
+        <if test="query.studentCode != null">
+            AND `s`.`student_code` LIKE '${query.studentCode}%'
+        </if>
+        <if test="query.name != null">
+            AND `s`.`name` LIKE '${query.name}%'
+        </if>
+        <if test="query.classId != null">
+            AND `s`.`class_id` = #{query.classId}
+        </if>
+        <if test="query.identificationNumber != null">
+            AND `s`.`identification_number` = #{query.identificationNumber}
+        </if>
+        <if test="query.studentStatus != null">
+            AND `s`.`student_status` = #{query.studentStatus}
+        </if>
+        <if test="query.account != null">
+            AND `u`.`account` LIKE '${query.account}%'
+        </if>
+    </select>
+
+</mapper>

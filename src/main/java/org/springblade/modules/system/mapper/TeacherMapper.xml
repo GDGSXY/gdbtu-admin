@@ -7,6 +7,7 @@
                `t`.`teacher_code`          AS `teacherCode`,
                `t`.`name`                  AS `name`,
                `t`.`identification_number` AS `identificationNumber`,
+               `t`.`political_outlook`     AS `politicalOutlook`,
                `t`.`job_status`            AS `jobStatus`,
                `u`.`account`               AS `account`,
                `u`.`role_id`               AS `roleIds`
@@ -30,6 +31,7 @@
         `t`.`teacher_code` AS `teacherCode`,
         `t`.`name` AS `name`,
         `t`.`identification_number` AS `identificationNumber`,
+        `t`.`political_outlook` AS `politicalOutlook`,
         `t`.`job_status` AS `jobStatus`,
         `u`.`account` AS `account`,
         `u`.`role_id` AS `roleIds`

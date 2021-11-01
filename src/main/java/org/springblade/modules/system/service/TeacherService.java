@@ -26,4 +26,6 @@ public interface TeacherService extends IService<Teacher> {
 
     boolean updateTeacher(UpdateTeacherCMD cmd);
 
+    boolean removeTeacherByIds(List<Long> userIds);
+
 }

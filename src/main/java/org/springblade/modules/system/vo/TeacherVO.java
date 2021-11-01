@@ -3,6 +3,7 @@ package org.springblade.modules.system.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springblade.modules.system.enums.PoliticalOutlookEnum;
 import org.springblade.modules.system.enums.TeacherJobStatusEnum;
 
 import java.util.List;
@@ -27,6 +28,9 @@ public class TeacherVO {
     @ApiModelProperty("身份证号")
     private String identificationNumber;
 
+    @ApiModelProperty("政治面貌")
+    private PoliticalOutlookEnum politicalOutlook;
+
     @ApiModelProperty("入职状态")
     private TeacherJobStatusEnum jobStatus;
 
@@ -37,6 +41,6 @@ public class TeacherVO {
     private String account;
 
     @ApiModelProperty("所属角色s")
-    private List<String> roleNameList;
+    private List<String> roleIds;
 
 }

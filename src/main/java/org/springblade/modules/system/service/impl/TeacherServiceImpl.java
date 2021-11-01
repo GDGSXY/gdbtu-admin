@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springblade.common.tool.PageUtil;
+import org.springblade.core.tool.utils.Func;
 import org.springblade.modules.system.bo.TeacherBO;
 import org.springblade.modules.system.cmd.CreateTeacherCMD;
 import org.springblade.modules.system.cmd.UpdateTeacherCMD;
@@ -52,7 +53,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         User user = new User();
         user.setAccount(cmd.getName());
         user.setPassword("NULL");
-        user.setRoleId(cmd.getRoleIds());
+        user.setRoleId(Func.join(cmd.getRoleIds()));
         userService.save(user);
         // Create Teacher
         Teacher teacher = new Teacher()
@@ -71,7 +72,7 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
     public boolean updateTeacher(UpdateTeacherCMD cmd) {
         // Update User
         User user = userService.getById(cmd.getId());
-        user.setRoleId(cmd.getRoleIds());
+        user.setRoleId(Func.join(cmd.getRoleIds()));
         userService.updateById(user);
         // Update Teacher
         Teacher teacher = getTeacherByUserId(cmd.getId())
@@ -84,14 +85,23 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         return updateById(teacher);
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean removeTeacherByIds(List<Long> userIds) {
+        return userService.removeByIds(userIds) &&
+                removeTeacherByUserIds(userIds);
+    }
+
     private Teacher getTeacherByUserId(long userId) {
         LambdaQueryWrapper<Teacher> wrapper = Wrappers.lambdaQuery(Teacher.class)
                 .eq(Teacher::getUserId, userId);
         return getOne(wrapper);
     }
 
+    private boolean removeTeacherByUserIds(List<Long> userIds) {
+        LambdaQueryWrapper<Teacher> wrapper = Wrappers.lambdaQuery(Teacher.class)
+                .in(Teacher::getUserId, userIds);
+        return remove(wrapper);
+    }
+
 }
-
-
-
-

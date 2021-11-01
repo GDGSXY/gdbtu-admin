@@ -6,6 +6,8 @@ import org.springblade.modules.system.enums.PoliticalOutlookEnum;
 import org.springblade.modules.system.enums.TeacherJobStatusEnum;
 import org.springblade.modules.system.enums.UserGenderEnum;
 
+import java.util.List;
+
 /**
  * @author Jover Zhang
  * @date 2021/10/31
@@ -32,6 +34,6 @@ public class CreateTeacherCMD {
     private TeacherJobStatusEnum jobStatus;
 
     @ApiModelProperty(value = "所属角色s", required = true)
-    private String roleIds;
+    private List<String> roleIds;
 
 }

@@ -2,6 +2,7 @@ package org.springblade.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -15,7 +16,6 @@ import org.springblade.modules.system.cmd.CreateTeacherCMD;
 import org.springblade.modules.system.cmd.UpdateTeacherCMD;
 import org.springblade.modules.system.query.TeacherQuery;
 import org.springblade.modules.system.service.ClassInfoService;
-import org.springblade.modules.system.service.IRoleService;
 import org.springblade.modules.system.service.TeacherService;
 import org.springblade.modules.system.vo.TeacherVO;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +36,6 @@ public class TeacherController {
     private final TeacherService service;
 
     private final ClassInfoService classInfoService;
-
-    private final IRoleService roleService;
 
     @GetMapping("/{id}")
     @ApiOperation("查看详情")
@@ -71,7 +69,7 @@ public class TeacherController {
     @PostMapping("/remove")
     @ApiOperationSupport(order = 6)
     public R<Void> update(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
-        return R.status(service.removeByIds(Func.toLongList(ids)));
+        return R.status(service.removeTeacherByIds(Func.toLongList(ids)));
     }
 
     private TeacherVO convert(TeacherBO bo) {
@@ -80,10 +78,11 @@ public class TeacherController {
                 .setTeacherCode(bo.getTeacherCode())
                 .setName(bo.getName())
                 .setIdentificationNumber(bo.getIdentificationNumber())
+                .setPoliticalOutlook(bo.getPoliticalOutlook())
                 .setJobStatus(bo.getJobStatus())
                 .setNumManageClass(classInfoService.countByTeacherId(bo.getId()))
                 .setAccount(bo.getAccount())
-                .setRoleNameList(roleService.getRoleNames(bo.getRoleIds()));
+                .setRoleIds(Lists.newArrayList(bo.getRoleIds().split(",")));
     }
 
 }

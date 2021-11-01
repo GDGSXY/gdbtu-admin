@@ -1,6 +1,7 @@
 package org.springblade.modules.system.bo;
 
 import lombok.Data;
+import org.springblade.modules.system.enums.PoliticalOutlookEnum;
 import org.springblade.modules.system.enums.TeacherJobStatusEnum;
 
 /**
@@ -29,6 +30,11 @@ public class TeacherBO {
      * 身份证号
      */
     private String identificationNumber;
+
+    /**
+     * 政治面貌
+     */
+    private PoliticalOutlookEnum politicalOutlook;
 
     /**
      * 入职状态

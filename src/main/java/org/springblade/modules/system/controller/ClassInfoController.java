@@ -1,6 +1,7 @@
 package org.springblade.modules.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -63,6 +64,11 @@ public class ClassInfoController extends BladeController {
     @ApiOperationSupport(order = 2)
     public R<IPage<ClassInfoVO>> page(ClassInfoQuery query) {
         IPage<ClassInfo> page = service.getPage(query);
+        // TODO
+        if (page.getRecords().isEmpty()) {
+            return R.data(new Page<>(page.getCurrent(), page.getSize(), page.getTotal()));
+        }
+
         // 专业信息
         List<Long> majorIds = page.getRecords().stream().map(ClassInfo::getMajorId).collect(Collectors.toList());
         Map<Long, Major> majorMap = majorService.getMapByIds(majorIds);

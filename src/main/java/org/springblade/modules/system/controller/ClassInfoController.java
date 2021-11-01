@@ -85,23 +85,30 @@ public class ClassInfoController extends BladeController {
         }));
     }
 
+    @GetMapping("/select")
+    @ApiOperation("下拉数据源")
+    @ApiOperationSupport(order = 3)
+    public R<List<ClassInfo>> select() {
+        return R.data(service.list());
+    }
+
     @ApiOperation("新增")
     @PostMapping("/save")
-    @ApiOperationSupport(order = 3)
+    @ApiOperationSupport(order = 4)
     public R<Void> create(@RequestBody ClassInfo classInfo) {
         return R.status(service.saveOrUpdate(classInfo));
     }
 
     @ApiOperation("修改")
     @PostMapping("/update")
-    @ApiOperationSupport(order = 3)
+    @ApiOperationSupport(order = 5)
     public R<Void> update(@RequestBody ClassInfo classInfo) {
         return R.status(service.saveOrUpdate(classInfo));
     }
 
     @ApiOperation("删除")
     @PostMapping("/remove")
-    @ApiOperationSupport(order = 4)
+    @ApiOperationSupport(order = 6)
     public R<Void> update(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
         return R.status(service.removeByIds(Func.toLongList(ids)));
     }

@@ -27,4 +27,6 @@ public interface StudentService extends IService<Student> {
 
     boolean removeStudentByIds(List<Long> userIds);
 
+    Student getStudentByIdentificationNumber(String identificationNumber);
+
 }

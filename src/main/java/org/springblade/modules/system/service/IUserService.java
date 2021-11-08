@@ -125,22 +125,25 @@ public interface IUserService extends BaseService<User> {
 	 * @param data
 	 * @return
 	 */
-	void importUser(List<UserExcel> data);
+    void importUser(List<UserExcel> data);
 
-	/**
-	 * 获取导出用户数据
-	 *
-	 * @param queryWrapper
-	 * @return
-	 */
-	List<UserExcel> exportUser(Wrapper<User> queryWrapper);
+    /**
+     * 获取导出用户数据
+     *
+     * @param queryWrapper
+     * @return
+     */
+    List<UserExcel> exportUser(Wrapper<User> queryWrapper);
 
-	/**
-	 * 注册用户
-	 *
-	 * @param user
-	 * @param oauthId
-	 * @return
-	 */
-	boolean registerGuest(User user, Long oauthId);
+    /**
+     * 注册用户
+     *
+     * @param user
+     * @param oauthId
+     * @return
+     */
+    boolean registerGuest(User user, Long oauthId);
+
+    User getByWeappOpenId(String weappOpenId);
+
 }

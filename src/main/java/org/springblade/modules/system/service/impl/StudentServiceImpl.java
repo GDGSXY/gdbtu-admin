@@ -95,6 +95,13 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
                 removeStudentByUserIds(userIds);
     }
 
+    @Override
+    public Student getStudentByIdentificationNumber(String identificationNumber) {
+        LambdaQueryWrapper<Student> wrapper = Wrappers.lambdaQuery(Student.class)
+                .eq(Student::getIdentificationNumber, identificationNumber);
+        return getOne(wrapper);
+    }
+
     private Student getStudentByUserId(long userId) {
         LambdaQueryWrapper<Student> wrapper = Wrappers.lambdaQuery(Student.class)
                 .eq(Student::getUserId, userId);

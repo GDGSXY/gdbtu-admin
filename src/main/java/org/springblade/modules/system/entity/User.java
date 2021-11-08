@@ -18,9 +18,9 @@ package org.springblade.modules.system.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springblade.core.mp.base.TenantEntity;
@@ -57,26 +57,36 @@ public class User extends TenantEntity {
 	private String account;
 	/**
 	 * 密码
-	 */
-	private String password;
-	/**
-	 * 昵称
-	 */
-	private String name;
-	/**
-	 * 真名
-	 */
-	private String realName;
-	/**
-	 * 头像
-	 */
-	private String avatar;
-	/**
-	 * 邮箱
-	 */
-	private String email;
-	/**
-	 * 手机
+     */
+    private String password;
+
+    /**
+     * 昵称
+     */
+    private String name;
+
+    /**
+     * 真名
+     */
+    private String realName;
+
+    /**
+     * 微信小程序 open id
+     */
+    private String weappOpenid;
+
+    /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 手机
 	 */
 	private String phone;
 	/**
@@ -99,6 +109,4 @@ public class User extends TenantEntity {
 	 * 部门id
 	 */
 	private String postId;
-
-
 }
